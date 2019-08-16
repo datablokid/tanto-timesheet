@@ -1,0 +1,347 @@
+<!--
+	File: index.html
+	Code: Timesheet+W3.CSS  
+	Date: 15-agustus-2019. Kamis
+	User: Budiono.
+	Web : www.datablok.id
+-->
+<!DOCTYPE html>
+<html>
+<title>datablok.id</title>
+	<!--meta data-->
+	<meta charset="UTF-8">
+	<meta name="description" content="Membuat sendiri aplikasi online">
+	<meta name="keywords" content="Javascript,Timesheet,HTML,CSS">
+	<meta name="author" content="Budiono">
+	
+	<!--viewport-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!--External CSS-->
+	<link rel="stylesheet" type="text/css" href="css/snackbar.css">
+	
+	<!--External w3.CSS-->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-dark-grey.css">
+	
+	<!--
+		THEMES DARI W3-CSS
+		source: https://www.w3schools.com/w3css/w3css_color_themes.asp
+		
+		[good themes]
+		18.blue-grey [best]
+		21.dark-grey [best]
+		22.black [best]
+		
+		[bad themes]
+		01.red [x]
+		02.pink [ok]
+		03.purple [x]
+		04.deep-purple [x]
+		05.indigo [bad] buruk ditempat terang, terlalu silau
+		06.blue [bad]
+		07.light-blue [x] buruk ditempat gelap
+		08.cyan [bad]
+		09.teal [x]
+		10.green
+		11.light-green [x]
+		12.lime
+		13.khaki [ok]
+		14.yellow [bad] silau
+		15.amber [x]
+		16.orange [x]
+		17.deep-orange [x]
+		19.brown [x]
+		20.grey [y]
+		23.w3schools
+		
+	-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style>
+		body {font-family: "Roboto", sans-serif}
+		.w3-bar-block .w3-bar-item {
+			padding: 16px;
+			
+		}
+		div.gold{
+			background-color:gold;
+			height:1px;
+		}
+	</style>
+	
+	<script>
+
+	var myServer=sessionStorage.getItem("myServer"); 
+
+	if (myServer==null){ 
+		
+		myServer="https://www.datablok.id/t1/"; 
+		//myServer="https://www.35.226.131.186++";
+		//myServer="http://localhost/t1/"; 
+		
+	}
+
+	// standar global
+	var globalVar = {
+		login_blok: null
+		,user_name:null
+		,user_fullname:null
+		,company_blok:null
+		,company_name:null
+	};
+
+	var g = globalVar;
+	
+	
+	if (sessionStorage.getItem("login_blok") != null){
+		
+		g.login_blok = sessionStorage.getItem("login_blok");
+	}
+
+	if (sessionStorage.getItem("company_blok") != null){
+		
+		g.company_blok = sessionStorage.getItem("company_blok");
+	}
+
+	if (sessionStorage.getItem("company_name") != null){
+		
+		g.company_name = sessionStorage.getItem("company_name");
+
+	}
+
+	</script>
+	
+	<!--basic user login-->
+	<script src="./js/xyz.js"></script> <!--1-->
+	<script src="./js/admin.js"></script> <!--2-->
+	<script src="./js/login.js"></script> <!--3-->
+	<script src="./js/logout.js"></script> <!--4-->
+	<script src="./js/forgot.js"></script> <!--5-->
+	<script src="./js/user.js"></script> <!--6-->
+	<script src="./js/menu.js"></script> <!--7-->
+	<script src="./js/menusub.js"></script> <!--8-->
+	<!--<script src="./js/menuuser.js"></script>-->
+	<script src="./js/subuser.js"></script> <!--10-->
+	<script src="./js/subusercompany.js"></script> <!--11-->
+
+	<!--basic setting -->
+	<script src="./js/home.js"></script> <!--12-->
+	<script src="./js/default.js"></script><!--13-->
+	<script src="./js/blok.js"></script> <!--14-->
+	<script src="./js/profile.js"></script> <!--15-->
+
+	<!--timesheet apps-->
+	<script src="./js/person.js"></script> <!--16-->
+	<script src="./js/person_lookup.js"></script> <!--17-->
+	<script src="./js/joborder.js"></script> <!--18-->
+	<script src="./js/joborder_lookup.js"></script> <!--19-->
+	<script src="./js/task.js"></script> <!--20-->
+	<script src="./js/task_lookup.js"></script> <!--21-->
+	<script src="./js/timecard.js"></script> <!--22-->
+	
+	<!--timesheet report-->
+	<script src="./js/report.js"></script> <!--23-->
+
+	<title>
+		Aplikasi Online Timesheet
+	</title>
+</head>
+<body onload='load1()'>
+
+<!--left-->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-card" style="z-index:3;width:250px;" id="mySidebar">
+	<div class="gold"></div>
+	<div class="w3-container w3-theme-d5 w3-center"><i class="fa fa-calendar w3-xxxlarge" style="color:gold"></i></div>
+	<div class="gold"></div>
+	<a class="w3-bar-item w3-button w3-hide-large w3-large w3-dark-gray" href="javascript:void(0)" onclick="w3_close()">Close <i class="fa fa-remove"></i></a>
+	<button id = "menuHome" value="Home" onclick="w3_close();jsHome.viewRead()" class="w3-bar-item w3-button w3-xlarge w3-theme-d1"><i class="fa fa-home"></i>&nbsp;Home</button><!--home button-->
+	<div class="gold"></div>
+	<span id="menu"></span>
+	<span id="menuDua"></span>
+	<span id="menuUser"></span>
+	<input type="button" id = "btnNew" onclick="w3_close();jsAdmin.viewCreate();" value="New User" class="w3-bar-item w3-button w3-theme-d5"><!--new user button-->
+	<div class="gold"></div>
+	<input type="button" id = "btnForgot" onclick="w3_close();jsForgot.viewRead();" value="Forgot Password" class="w3-bar-item w3-button w3-theme-d5"><!--forgot password button-->
+	<div class="gold"></div>
+	<button id = "menuLogin" value="Login" onclick="klikLogin()" class="w3-bar-item w3-button w3-theme"><i class="fa fa-sign-in"></i>&nbsp;Login</button>
+	<button id = "menuLogout" value="Logout" onclick="klikLogin()" class="w3-bar-item w3-button w3-theme"><i class="fa fa-sign-out"></i>&nbsp;Logout</button>
+	
+</nav>
+
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:250px;">
+
+	<div id="myTop" class="w3-container w3-top w3-theme w3-large">
+		<p>
+		<i class="fa fa-bars w3-button w3-theme w3-hide-large w3-xlarge" onclick="w3_open()"></i>
+		<!--<span id="userAktif"></span>-->
+		<span id="myIntro" class="w3-hide">D a t a b l o k . i d</span><!--myintro tampil ketika discroll-->
+		</p>
+	</div>
+	
+	<header class="w3-container w3-theme" style="padding:60px 32px">
+	<h1 class="w3-xxxlarge">D a t a b l o k . i d</h1>
+	<span id="userAktif" class="w3-large"></span>
+	</header>
+	
+	<div class="gold"></div>
+
+<!--middle-->
+<div class="w3-container" style="padding:20px">
+
+	<p id="header"></p>
+	<h4 id="header2"></h4>
+	<p id="companyHeader"></p>
+	
+	<p id="themeForm"></p>
+	<div id="viewMid">
+	<h1>Aplikasi Online Timesheet</h1>
+	
+</div>	
+
+	<!--start modal form-->
+	<div class="w3-container">
+	  <div id="id01" class="w3-modal">
+		<div class="w3-modal-content w3-card-4">
+		  <header class="w3-container w3-theme-d4">
+			<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+			<h2 id="headerModal">Modal Header</h2>
+			</header>
+			<div  class= "w3-container">
+				<div id="searchModal"></div> <!--input text search-->
+				<span id="pageModal"></span> <!--number page view-->
+				<span id="countModal"></span><!--count record-->
+				<div id="isiModal" style="overflow-y: scroll;height: 300px">
+					<p>Some text load. Some text load. Some text load.</p>
+					<p>Some text load. Some text load. Some text load.</p>
+				</div><p>
+			</div>  
+		</div>
+	  </div>
+	</div>
+	<!--end modal -->
+
+<div id="snackbar"></div>
+<div id="msgindex"></div>
+     
+</div>
+
+<script>
+// Open and close the sidebar on medium and small screens
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Change style of top container on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
+    document.getElementById("myIntro").classList.add("w3-show-inline-block");
+  } else {
+    document.getElementById("myIntro").classList.remove("w3-show-inline-block");
+    document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+  }
+}
+
+// Accordions
+function myAccordion(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-theme";
+  } else { 
+    x.className = x.className.replace("w3-show", "");
+    x.previousElementSibling.className = 
+    x.previousElementSibling.className.replace(" w3-theme", "");
+  }
+}
+</script>
+     
+</body>
+
+	<script>
+	
+	function load1(){
+		if (g.login_blok==null){
+			
+			//document.getElementById("menuLogin").value = "Login";
+			document.getElementById("menuLogout").style.display="none";
+			document.getElementById("msgindex").innerHTML="";
+			
+			jsLogin.htmlCreate();			
+			
+		}else{
+			
+			//document.getElementById("menuLogin").value = "Logout";
+			document.getElementById("menuLogin").style.display="none";
+			document.getElementById("menuHome").style.display="inline";
+			document.getElementById("btnNew").style.display="none";
+			document.getElementById("btnForgot").style.display="none";
+
+			jsLogin.isLogin();
+			
+			jsMenu.viewRead();
+			
+			jsMenusub.viewRead();
+			
+			jsMenuuser.viewRead();
+			
+			jsHome.viewRead();
+			
+		}
+		
+	}
+		
+	function klikLogin(){
+		w3_close();
+		if (g.login_blok == null){
+			
+			jsLogin.htmlCreate();
+			
+		}else{
+			
+			jsLogout.htmlCreate();
+
+		}		
+	}
+	
+	</script>
+	
+	<script>
+		function papanInfo(kalimat, err){
+			messageBox(kalimat);
+			var tulisan;
+			
+			if (err==0){
+				tulisan = '<div class="w3-panel w3-cyan w3-display-container w3-round-xlarge">';
+				tulisan+='<p><span onclick="this.parentElement.style.display=\'none\'" class="w3-button w3-large w3-display-topright">&times;</span>';
+				tulisan+='<strong>Success! </strong>';
+			}else{
+				tulisan = '<div class="w3-panel w3-amber w3-display-container w3-round-xlarge">';
+				tulisan+= '<p><span onclick="this.parentElement.style.display=\'none\'" class="w3-button w3-large w3-display-topright">&times;</span>';
+				tulisan+='<p><strong>Warning! </strong>';
+			}
+			tulisan += kalimat +'</p>';
+			tulisan += '</div>';
+			return tulisan;
+		}
+		
+		function messageBox(msg) {
+			var x = document.getElementById("snackbar");
+			x.className = "show";
+			x.innerHTML = "<strong style='color:yellow'>"+msg+"</strong>";
+			setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+		}
+	</script>
+</html> 
+
